@@ -1,0 +1,211 @@
+
+        :root {
+            --primary-color: rgba(255, 255, 255, 0.2);
+            --secondary-color: rgba(255, 255, 255, 0.1);
+            --text-color: #333;
+            --bg-color: #f0f0f0;
+            --button-bg: rgba(255, 255, 255, 0.5);
+            --button-hover: rgba(255, 255, 255, 0.7);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --accent-color: #6c5ce7;
+            --display-bg: rgba(255, 255, 255, 0.3);
+        }
+
+        .dark-mode {
+            --primary-color: rgba(30, 30, 30, 0.8);
+            --secondary-color: rgba(20, 20, 20, 0.6);
+            --text-color: #f0f0f0;
+            --bg-color: #121212;
+            --button-bg: rgba(40, 40, 40, 0.7);
+            --button-hover: rgba(60, 60, 60, 0.7);
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --accent-color: #a29bfe;
+            --display-bg: rgba(30, 30, 30, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 200, 124, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(131, 165, 203, 0.1) 0%, transparent 20%);
+            color: var(--text-color);
+            overflow: hidden;
+        }
+
+        .calculator {
+            width: 320px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 
+                0 8px 32px 0 var(--shadow-color),
+                inset 0 4px 8px 0 var(--secondary-color),
+                inset 0 -4px 8px 0 var(--secondary-color);
+            background: var(--primary-color);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotateX(0deg) rotateY(0deg);
+                box-shadow: 
+                    0 8px 32px 0 var(--shadow-color),
+                    inset 0 4px 8px 0 var(--secondary-color),
+                    inset 0 -4px 8px 0 var(--secondary-color);
+            }
+            50% {
+                transform: translateY(-20px) rotateX(2deg) rotateY(2deg);
+                box-shadow: 
+                    0 15px 40px 0 var(--shadow-color),
+                    inset 0 4px 8px 0 var(--secondary-color),
+                    inset 0 -4px 8px 0 var(--secondary-color);
+            }
+        }
+
+        .display {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 20px;
+            padding: 15px;
+            font-size: 2.5rem;
+            text-align: right;
+            border: none;
+            border-radius: 12px;
+            background: var(--display-bg);
+            box-shadow: 
+                inset 2px 2px 5px var(--shadow-color),
+                inset -2px -2px 5px var(--secondary-color);
+            color: var(--text-color);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 15px;
+        }
+
+        button {
+            height: 60px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            cursor: pointer;
+            background: var(--button-bg);
+            color: var(--text-color);
+            box-shadow: 
+                4px 4px 8px var(--shadow-color),
+                -4px -4px 8px var(--secondary-color);
+            position: relative;
+            overflow: hidden;
+            transform: translateZ(0);
+            transition: all 0.2s ease;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 
+                6px 6px 12px var(--shadow-color),
+                -6px -6px 12px var(--secondary-color);
+        }
+
+        button:hover::before {
+            transform: translateX(100%);
+        }
+
+        button:active {
+            transform: translateY(0) scale(0.98);
+            box-shadow: 
+                inset 2px 2px 5px var(--shadow-color),
+                inset -2px -2px 5px var(--secondary-color);
+        }
+
+        .operator {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .equals {
+            background: var(--accent-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        .clear, .delete {
+            color: #ff7675;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--button-bg);
+            color: var(--text-color);
+            border: none;
+            cursor: pointer;
+            box-shadow: 
+                4px 4px 8px var(--shadow-color),
+                -4px -4px 8px var(--secondary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(30deg) scale(1.1);
+        }
+
+        @media (max-width: 400px) {
+            .calculator {
+                width: 90vw;
+                padding: 15px;
+            }
+            
+            button {
+                height: 50px;
+                font-size: 1rem;
+            }
+            
+            .display {
+                height: 80px;
+                font-size: 2rem;
+            }
+        }
+    
